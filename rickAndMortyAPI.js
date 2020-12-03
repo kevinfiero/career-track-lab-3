@@ -36,17 +36,14 @@ async function getCharacter(URL, id) {
     }
 }
 
-function getManyCharacters(URL, id) {
+function getManyCharacters(URL, idArray) {
 
     const promises = [];
 
-    for (let i = 0; i<id.length; i++){
-        promises.push(getCharacter(URL, id[i]),)
+    for (let i = 0; i<idArray.length; i++){
+        promises.push(getCharacter(URL, idArray[i]),)
     }
     return Promise.all(promises)
-    .then(([firstCharacter, secondCharacter, thirdCharacter]) => {
-        return [firstCharacter, secondCharacter, thirdCharacter]
-    })
     .catch(err => {
         console.log(err);
         return err;
