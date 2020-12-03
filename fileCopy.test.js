@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const  { reader, writer, copy }  = require('./fileCopy');
 
-describe('sandbox functions', () =>{
+describe('copy function', () =>{
     afterAll(() => {
         fs.rm('./test2.txt');
         return fs.rm('./test.txt');
