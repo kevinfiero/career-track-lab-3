@@ -2,6 +2,7 @@ const { getCharacter, getManyCharacters } = require('./rickAndMortyAPI');
 
 describe('getCharacter', () => {
     it('get character with id = 2', async() => {
+ 
         const result = await getCharacter('https://rickandmortyapi.com/api/character/', 2);
         const expected =  {
             name: expect.any(String),
@@ -12,7 +13,6 @@ describe('getCharacter', () => {
     })
     it('get character with id = 2, 5, 10', async() => {
         const result = await getManyCharacters('https://rickandmortyapi.com/api/character/', [2, 5, 10]);
-        console.log(result)
         const expected =  [{
             name: expect.any(String),
             status: expect.any(String),
