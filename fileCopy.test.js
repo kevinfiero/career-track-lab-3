@@ -18,8 +18,4 @@ describe('copy function', () =>{
         const expected = 'This is a test!'
         expect(result).toEqual(expected);
     })
-
-
-
-
 })

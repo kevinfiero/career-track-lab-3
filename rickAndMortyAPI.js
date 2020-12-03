@@ -1,28 +1,5 @@
 const fetch = require('node-fetch');
 
-
-// .then syntax below:
-
-// function getCharacter(URL, id) {
-//     return fetch(URL)
-//     .then(data => {
-//         return data.json();
-//     })
-//     .then(data => {
-//         return findCharacter(data.results, id);
-//     })
-//     .then(data => {
-//         return formatCharacter(data);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         return err;
-//     });
-// }
-
-
-// async await syntax below:
-
 async function getCharacter(URL, id) {
     try{
         let data = await fetch(`${URL}${id}`);
@@ -36,18 +13,20 @@ async function getCharacter(URL, id) {
     }
 }
 
-function getManyCharacters(URL, idArray) {
+async function getManyCharacters(URL, idArray) {
 
-    const promises = [];
-
-    for (let i = 0; i<idArray.length; i++){
-        promises.push(getCharacter(URL, idArray[i]),)
+    let formattedCharactersArray = [];
+    try{
+        for (let i = 0; i<idArray.length; i++){
+            let formattedCharacter = await getCharacter(URL, idArray[i])
+            formattedCharactersArray.push(formattedCharacter)
+        }
+        return formattedCharactersArray;
     }
-    return Promise.all(promises)
-    .catch(err => {
+    catch(err){
         console.log(err);
-        return err;
-    });
+    }
+
 }
 
 function formatCharacter(data) {

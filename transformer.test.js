@@ -11,9 +11,5 @@ describe('transform', () => {
         const result = await reader('./transform.txt')
         const expected = '!TSET A SI SIHT'
         expect(result).toEqual(expected);
-
     })
-
-
-
 })
