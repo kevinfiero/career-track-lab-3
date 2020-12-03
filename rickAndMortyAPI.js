@@ -1,15 +1,51 @@
 const fetch = require('node-fetch');
 
-function getCharacter(URL, id) {
-    return fetch(URL)
-    .then(data => {
-        return data.json();
-    })
-    .then(data => {
-        return findCharacter(data.results, id);
-    })
-    .then(data => {
-        return formatCharacter(data);
+
+// .then syntax below:
+
+// function getCharacter(URL, id) {
+//     return fetch(URL)
+//     .then(data => {
+//         return data.json();
+//     })
+//     .then(data => {
+//         return findCharacter(data.results, id);
+//     })
+//     .then(data => {
+//         return formatCharacter(data);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         return err;
+//     });
+// }
+
+
+// async await syntax below:
+
+async function getCharacter(URL, id) {
+    try{
+        let data = await fetch(`${URL}${id}`);
+        data = await data.json();
+        const singleCharacterFormatted = formatCharacter(data)
+        return singleCharacterFormatted;
+    }
+    catch(err){
+        console.log(err);
+        return err;
+    }
+}
+
+function getManyCharacters(URL, id) {
+
+    const promises = [];
+
+    for (let i = 0; i<id.length; i++){
+        promises.push(getCharacter(URL, id[i]),)
+    }
+    return Promise.all(promises)
+    .then(([firstCharacter, secondCharacter, thirdCharacter]) => {
+        return [firstCharacter, secondCharacter, thirdCharacter]
     })
     .catch(err => {
         console.log(err);
@@ -17,40 +53,13 @@ function getCharacter(URL, id) {
     });
 }
 
-
-
-
-// async function getCharacter(URL, id) {
-//     try{
-//         let data = await fetch(URL);
-//         data = await data.json();
-//         const singleCharacter = findCharacter(data.results, id)
-//         const singleCharacterFormatted = formatCharacter(singleCharacter)
-//         return singleCharacterFormatted;
-//     }
-//     catch(err){
-//         console.log(err);
-//         return err;
-//     }
-// }
-
-function findCharacter(data, id) {
-    for(let j =0; j<data.length; j++){
-        if(data[j].id === id){
-            return data[j];
-        }
-    }
-}
-
-
 function formatCharacter(data) {
     const obj = {
         name: data.name,
         status: data.status,
         species: data.species
     }
-
     return obj;
 }
 
-module.exports = { getCharacter }
+module.exports = { getCharacter, getManyCharacters }
