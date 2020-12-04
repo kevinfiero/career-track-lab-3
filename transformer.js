@@ -29,7 +29,7 @@ const transformer = async(dir) => {
 }
 
 const lowerCase = (data) => {
-    return data.toLowerCase();
+    return data.replace( /[A-Z]/g, '');
 }
 
 const upperCase = (data) => {
