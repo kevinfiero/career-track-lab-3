@@ -21,6 +21,7 @@ async function getManyCharacters(URL, idArray) {
             let formattedCharacter = await getCharacter(URL, idArray[i])
             formattedCharactersArray.push(formattedCharacter)
         }
+        console.log(formattedCharactersArray);
         return formattedCharactersArray;
     }
     catch(err){

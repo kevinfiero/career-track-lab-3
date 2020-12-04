@@ -6,10 +6,10 @@ describe('transform', () => {
         return fs.rm('./transform.txt');
       });
     it('test transform', async() => {
-        await writer('./transform.txt', 'This is a test!');
+        await writer('./transform.txt', 'This is a Test!');
         await transformer('./transform.txt');
         const result = await reader('./transform.txt')
-        const expected = '!TSET A SI SIHT'
+        const expected = '!TSE A SI SIH'
         expect(result).toEqual(expected);
     })
 })
